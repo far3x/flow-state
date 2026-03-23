@@ -11,20 +11,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0A0812;
-            --text-color: #D0C8E8;
-            --accent-color: #A060D8;
-            --secondary-accent-color: #7858C0;
-            --secondary-text-color: #9890B8;
-            --error-color: #D84860;
-            --success-color: #58C8A8;
+            --bg-color: #0C0908;
+            --text-color: #E0D0C0;
+            --accent-color: #E07830;
+            --secondary-accent-color: #C06020;
+            --secondary-text-color: #A08870;
+            --error-color: #D84848;
+            --success-color: #C8A848;
             --caret-color: var(--accent-color);
             --scanline-dark: rgba(0,0,0,0.20);
-            --scanline-v-tint: rgba(60, 40, 100, 0.03);
-            --border-color: #201830;
-            --body-bg-color: #06040A;
-            --glow-color: rgba(160, 96, 216, 0.25);
-            --success-glow-color: rgba(88, 200, 168, 0.3);
+            --scanline-v-tint: rgba(80, 50, 20, 0.03);
+            --border-color: #2A1810;
+            --body-bg-color: #080504;
+            --glow-color: rgba(224, 120, 48, 0.25);
+            --success-glow-color: rgba(200, 168, 72, 0.3);
+            --ghost-color: #4A3828;
         }
 
         @keyframes fadeIn {
@@ -227,12 +228,18 @@
         }
         .caret {
             display: inline-block;
-            width: 8px;
+            width: 2px;
             height: 1.2em;
             background-color: var(--caret-color);
             animation: caretBlink 1.2s infinite step-end;
             vertical-align: bottom;
             flex-shrink: 0;
+        }
+
+        .ghost-text {
+            color: var(--ghost-color);
+            pointer-events: none;
+            text-shadow: none;
         }
 
         .error { color: var(--error-color); }
@@ -354,6 +361,8 @@
   <span class="accent-color">aboutme</span>      - display user profile.
   <span class="accent-color">projects</span>     - showcase notable projects.
   <span class="accent-color">skills</span>       - list technical proficiencies.
+  <span class="accent-color">internship</span>   - looking for opportunities.
+  <span class="accent-color">resume</span>       - open resume (pdf).
   <span class="accent-color">contact</span>      - view contact information.
   <span class="accent-color">clear</span>        - return to boot sequence.
   <span class="accent-color">reboot</span>       - re-initialize void_os.
@@ -361,61 +370,129 @@
                 aboutme: () => `
 <span class="secondary-accent-color">[user_profile]</span>
   <span class="label">name:</span><span class="value"> 流动状态 - far3x - 21 yo</span>
-  <span class="label">title:</span><span class="value"> CS Student</span>
+  <span class="label">title:</span><span class="value"> CS Student @ ISEP Paris</span>
   <span class="label">archetype:</span><span class="value"> istj-a (logical, structured)</span>
-  
+
   <span class="label">bio:</span><span class="value"> i enjoy flow state</span>
        <span class="value">invest 5% of the effort to yield 2000% of the result</span>
-       <span class="value">i like creating disproportionate value on what i work on</span>
+       <span class="value">i pick up any stack fast and go deeper than expected</span>
+       <span class="value">most of what i build isn't public</span>
 
-  <span class="label">exp:</span><span class="value"> 7 years coding. started python (and java sadly) at 14 (discord bots / self bots, api scraping / usage , automations... etc).</span>
-       <span class="value">developed more or less legal tools in this area.</span>
+  <span class="label">exp:</span><span class="value"> 7 years coding. started python (and java sadly) at 14 (discord bots, api scraping, automations).</span>
+       <span class="value">shipped real products used by real people.</span>
+       <span class="value">trading crypto since 17, deep into solana infrastructure.</span>
 
-  <span class="label">interests:</span><span class="value"> llms limit testing, hyperfocused coding, osu!, lol, piano.</span>
+  <span class="label">interests:</span><span class="value"> llms limit testing, hyperfocused coding, osu!, mandarin chinese, piano.</span>
                 `,
                 projects: () => `
 <span class="secondary-accent-color">[project_databank]</span>
-  > <span class="accent-color">lumen_protocol</span>
-    an ai-powered data sourcing protocol for code, that rewards devs.
-    stack: [python, fastapi, javascript, vite, solana]
-    links: 
-      website: <a href="https://lumen.onl/" target="_blank">lumen.onl</a>
-      github:  <a href="https://github.com/far3x/lumen" target="_blank">/lumen</a>
 
-  > <span class="accent-color">lumen_cli</span>
-    the official python cli to contribute on lumen.
-    also transform any coding projects into a large ai-ready prompt, in single a command.
-    stack: [python, tiktoken, requests, chardet, colorama]
+  <span class="secondary-accent-color">// public</span>
+
+  > <span class="accent-color">lumen_protocol</span>
+    b2b/b2c saas platform for ai training data sourcing. processed 80m+ lines
+    of code from hundreds of users, distributed $40k+ in usdc rewards on-chain.
+    4-stage hybrid valuation engine: quantitative analysis (lloc, cyclomatic
+    complexity, compression entropy, token count) + ai qualitative scoring
+    (gemini 2.5 flash, 3-dimension rubric: clarity, architecture, code quality).
+    pgvector 1536-dim embeddings for cross-user plagiarism detection (hnsw index).
+    celery worker pipeline (23 tasks, 2 priority queues) handling contribution
+    processing, daily usdc payout batches, embedding generation, and network stats.
+    b2b data explorer with advanced search, token-gated unlocks, and api keys.
+    stack: [python, fastapi, react, postgresql, pgvector, redis, celery, solana, gemini]
+    links:
+      website: <a href="https://lumen.onl/" target="_blank">lumen.onl</a>
+      github:  <a href="https://github.com/far3x/lumen-app" target="_blank">/lumen-app</a>
+
+  > <span class="accent-color">pylumen</span>
+    open-source cli for secure code contribution to lumen. 7,000+ pypi downloads.
+    also transforms any coding project into a large ai-ready prompt in a single command.
+    local-first security pipeline with trufflehog + scrubadub for pii/secret redaction.
+    stack: [python, tiktoken, trufflehog, scrubadub]
     links:
       github:  <a href="https://github.com/far3x/lumen" target="_blank">/lumen</a>
 
-  > <span class="accent-color">ai-responder-bgprocess</span>
-    a background process to automate ai inputs / outputs.
-    stack: [python, pyperclip, genai, tkinter]
+  > <span class="accent-color">ai_responder</span>
+    background process that answers questions from screenshots or clipboard via ai.
+    hotkey-driven, runs silently with visual status indicator.
+    stack: [python, gemini api, tkinter]
     links:
       github:  <a href="https://github.com/far3x/ai-responder-bgprocess" target="_blank">/ai-responder-bgprocess</a>
 
-  > <span class="accent-color">mistlify (wip)</span>
-    cheaper, self-hostable alternative to gitbook/mintlify.
+  > <span class="accent-color">dontclick</span> <span class="secondary-accent-color">(hackathon project)</span>
+    browser extension for real-time email phishing detection.
+    20+ risk indicators, multi-factor scoring across sender, links, content, structure.
+    stack: [javascript, chrome manifest v3, gemini api]
+    links:
+      github:  <a href="https://github.com/SnowZucc/DontClick" target="_blank">/DontClick</a>
 
-  > <span class="accent-color">glimpse (wip)</span>
-    lightwight & self-hostable password manager.
-  
-  more projects incoming...
+  > <span class="accent-color">chinese_basics</span>
+    condensed chinese/mandarin course notes for exam prep. surprisingly useful.
+    links:
+      github:  <a href="https://github.com/far3x/chinese-basics" target="_blank">/chinese-basics</a>
+
+  <span class="secondary-accent-color">// private</span>
+
+  > <span class="accent-color">solana_arb_bot</span>
+    real-time circular arbitrage bot detecting 2/3/4-hop profitable routes
+    across 28 dex programs (20 active swap, 8 discovery-only). sub-100us
+    detection on a colocated 5.7ghz server. 3-thread architecture: grpc pool
+    streaming, engine hot path (analytic 2-hop, ternary search n-hop), and
+    multi-provider submission racing 8 endpoints simultaneously via nonce
+    fan-out. custom 256-bit fixed-point swap math for concentrated liquidity.
+    custom on-chain bpf program for generic n-hop execution with cpi swaps.
+    ~15k lines of rust.
+    stack: [rust, solana bpf, grpc, jito, falcon quic]
+
+  > <span class="accent-color">kira_terminal</span>
+    wallet manager and token launcher with more or less legal modes.
+    live terminal dashboard with real-time tracking.
+    stack: [rust, solana, jito, ratatui]
+
+  > <span class="accent-color">signal_interceptor</span>
+    reads data from various sources and generates memecoin signals in ~300ms
+    using a local ai model. full pipeline with smart filtering and routing.
+    stack: [python, fastapi, chrome extension, local llm]
+
   archives: <a href="https://github.com/far3x/" target="_blank">github.com/far3x</a>
                 `,
                 skills: () => `
 <span class="secondary-accent-color">[skill_assessment]</span>
-  <span class="label">languages:</span><span class="value"> python, golang (learning)</span>
-  <span class="label">expertise:</span><span class="value"> automation, api's, backend systems</span>
-  <span class="label">interests:</span><span class="value"> ai (llm focus), quant dev, systems programming</span>
-  <span class="label">meta_skills:</span><span class="value"> systems thinking, efficiency optimization, detail-oriented</span>
+  <span class="label">languages:</span><span class="value"> python, golang, javascript, c</span>
+  <span class="label">also used:</span><span class="value"> rust, typescript (self-taught, heavy on architecture and system design)</span>
+  <span class="label">expertise:</span><span class="value"> backend systems, blockchain infra (solana), ai integration, automation</span>
+  <span class="label">databases:</span><span class="value"> postgresql (pl/pgsql, pgvector, triggers, perf analysis), redis, mongodb</span>
+  <span class="label">infra:</span><span class="value">     docker, vps, nginx, cloudflare workers</span>
+  <span class="label">approach:</span><span class="value">  7 years of building means i spend less time learning a stack</span>
+             <span class="value">and more time shipping with it. patterns carry over :)</span>
                 `,
+                internship: () => `
+<span class="secondary-accent-color">[internship_search]</span>
+  <span class="label">status:</span><span class="value">    <span class="success">actively looking</span></span>
+  <span class="label">role:</span><span class="value">      software engineering intern</span>
+  <span class="label">available:</span><span class="value"> march - april 2027</span>
+  <span class="label">location:</span><span class="value">  outside europe preferred</span>
+  <span class="label">targets:</span><span class="value">   china, japan, south korea, australia, uae, usa</span>
+
+  <span class="label">areas:</span><span class="value">     backend systems, blockchain infrastructure, ai/llm integration,</span>
+             <span class="value">fullstack development, trading systems, data platforms</span>
+
+  <span class="label">note:</span><span class="value">      open to startups and fast-paced environments.</span>
+             <span class="value">i ship fast, learn faster, and don't need hand-holding.</span>
+             <span class="value">if your hiring process is leetcode/codeforces, don't bother pls</span>
+
+  <span class="label">contact:</span><span class="value">   <a href="mailto:far3000yt@gmail.com">far3000yt@gmail.com</a></span>
+                `,
+                resume: () => {
+                    window.open('resume-final.pdf', '_blank');
+                    return `<span class="success">opening resume...</span>`;
+                },
                 contact: () => `
 <span class="secondary-accent-color">[communication_channels]</span>
-  <span class="label">mail:</span><span class="value"> <a href="mailto:far3000yt@gmail.com">far3000yt@gmail.com</a></span>
-  <span class="label">gh:</span><span class="value">   <a href="https://github.com/far3x/" target="_blank">far3x</a></span>
-  <span class="label">twt:</span><span class="value">  <a href="https://www.x.com/far3xbt" target="_blank">far3xbt</a></span>
+  <span class="label">mail:</span><span class="value">    <a href="mailto:far3000yt@gmail.com">far3000yt@gmail.com</a></span>
+  <span class="label">gh:</span><span class="value">      <a href="https://github.com/far3x/" target="_blank">far3x</a></span>
+  <span class="label">twt:</span><span class="value">     <a href="https://www.x.com/far3xbt" target="_blank">far3xbt</a></span>
+  <span class="label">discord:</span><span class="value"> <a href="https://discord.com/users/far3000" target="_blank">@far3000</a></span>
                 `,
                 clear: () => {
                     displayWelcomeInTerminal(true);
@@ -616,6 +693,10 @@
                 const caret = document.createElement('span');
                 caret.classList.add('caret');
                 currentInputLine.appendChild(caret);
+
+                const ghostText = document.createElement('span');
+                ghostText.classList.add('ghost-text');
+                currentInputLine.appendChild(ghostText);
                 
                 currentInput = document.createElement('input');
                 currentInput.type = 'text';
@@ -627,6 +708,8 @@
 
                 currentInput.addEventListener('input', () => {
                     commandOutput.textContent = currentInput.value;
+                    const suggestion = getGhostSuggestion(currentInput.value);
+                    ghostText.textContent = suggestion;
                     terminalContent.scrollTop = terminalContent.scrollHeight;
                 });
                 
@@ -636,8 +719,29 @@
                 terminalContent.scrollTop = terminalContent.scrollHeight;
             }
 
+            const commandNames = Object.keys(commands);
+
+            function getGhostSuggestion(input) {
+                if (!input) return '';
+                const lower = input.toLowerCase();
+                const match = commandNames.find(c => c.startsWith(lower) && c !== lower);
+                return match ? match.slice(input.length) : '';
+            }
+
             function handleTerminalInput(e) {
                 if (!terminalInCommandMode || !currentInput) return;
+
+                if (e.key === 'Tab') {
+                    e.preventDefault();
+                    const val = currentInput.value.toLowerCase();
+                    if (!val) return;
+                    const match = commandNames.find(c => c.startsWith(val));
+                    if (match) {
+                        currentInput.value = match;
+                        currentInput.dispatchEvent(new Event('input'));
+                    }
+                    return;
+                }
 
                 if (e.key === 'Enter') {
                     e.preventDefault();
@@ -646,6 +750,8 @@
                     if (currentInputLine) {
                         currentInputLine.classList.remove('input-line');
                         currentInputLine.onclick = null;
+                        const ghost = currentInputLine.querySelector('.ghost-text');
+                        if (ghost) ghost.remove();
                         const caret = currentInputLine.querySelector('.caret');
                         if (caret) caret.remove();
                     }
